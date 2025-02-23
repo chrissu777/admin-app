@@ -1,23 +1,23 @@
-backend/HELP.md
-backend/target/
-backend/!.mvn/wrapper/maven-wrapper.jar
-backend/!**/src/main/**/target/
-backend/!**/src/test/**/target/
+adminapi/HELP.md
+adminapi/target/
+adminapi/!.mvn/wrapper/maven-wrapper.jar
+adminapi/!**/src/main/**/target/
+adminapi/!**/src/test/**/target/
 
 ### STS ###
-backend/.apt_generated
-backend/.classpath
-backend/.factorypath
-backend/.project
-backend/.settings
-backend/.springBeans
-backend/.sts4-cache
+adminapi/.apt_generated
+adminapi/.classpath
+adminapi/.factorypath
+adminapi/.project
+adminapi/.settings
+adminapi/.springBeans
+adminapi/.sts4-cache
 
 ### IntelliJ IDEA ###
-backend/.idea
-backend/*.iws
-backend/*.iml
-backend/*.ipr
+adminapi/.idea
+adminapi/*.iws
+adminapi/*.iml
+adminapi/*.ipr
 
 # Logs
 frontend/logs
