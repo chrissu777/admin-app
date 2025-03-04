@@ -3,7 +3,8 @@ adminapi/target/
 adminapi/!.mvn/wrapper/maven-wrapper.jar
 adminapi/!**/src/main/**/target/
 adminapi/!**/src/test/**/target/
-
+/.venv/
+*/__pycache__/
 ### STS ###
 adminapi/.apt_generated
 adminapi/.classpath
