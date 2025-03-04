@@ -9,4 +9,5 @@ class Profile(models.Model):
         ("POLICE", "Police"),
     ]
     role = models.CharField(max_length=50,choices=ROLE_CHOICES)
-    school = models.ForeignKey(School, blank=True, on_delete=models.CASCADE)
+    school = models.ForeignKey(School, blank=True, on_delete=models.CASCADE, related_name='admins')
+    jursidction = models.ManyToManyField(School, blank=True, related_name='officers')
