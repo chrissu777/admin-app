@@ -1,3 +1,12 @@
 from django.db import models
 
-# Create your models here.
+class School(models.Model):
+    name = models.CharField(max_length=255)
+
+class Profile(models.Model):
+    ROLE_CHOICES=[
+        ("SC_ADMIN", "School Admin"),
+        ("POLICE", "Police"),
+    ]
+    role = models.CharField(max_length=50,choices=ROLE_CHOICES)
+    school = models.ForeignKey(School, blank=True, on_delete=models.CASCADE)
