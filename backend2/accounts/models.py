@@ -2,6 +2,7 @@ from django.db import models
 
 class School(models.Model):
     name = models.CharField(max_length=255)
+    nces_id = models.CharField(max_length=20,default=0)
 
 class Profile(models.Model):
     ROLE_CHOICES=[
