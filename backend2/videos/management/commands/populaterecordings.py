@@ -18,14 +18,15 @@ class Command(BaseCommand):
 
         for bucket_item in bucket_content:
             
-            s3_key = bucket_item['Key'] # object naming convention: schoolname/nces_id/date
-            item_details = s3_key.split['/'] # ['school', 'nces_id', 'date' -> unused]
+            s3_key = bucket_item['Key'] # object naming convention: schoolname*nces_id
+            item_details = s3_key.split('*') # ['school', 'nces_id', 'date' -> unused]
             school_name = item_details[0]
             ncesid = item_details[1]
 
             last_modified = bucket_item['LastModified'] # DateTime object
 
-            school_model = School.objects.filter(nces_id = ncesid)
+            school_model = School.objects.first()
+            # School.objects.filter(nces_id = ncesid) TODO try this later
             if not Recording.objects.filter(s3_filepath=s3_key).exists():
                 
                 Recording.objects.create(
