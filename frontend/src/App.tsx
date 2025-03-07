@@ -1,17 +1,29 @@
-import { useState } from 'react'
-import  RecordingsPage from './pages/RecordingsPage'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import RecordingsPage from "./pages/RecordingsPage";
+import HomePage from "./pages/HomePage";
+import "./App.css";
 
 function App() {
-  // const [count, setCount] = useState(0)
-
   return (
-    <>
+    <Router>
       <div>
-        <RecordingsPage />
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/recordings">Recordings</Link>
+            </li>
+          </ul>
+        </nav>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/recordings" element={<RecordingsPage />} />
+        </Routes>
       </div>
-    </>
-  )
+    </Router>
+  );
 }
 
-export default App
+export default App;
