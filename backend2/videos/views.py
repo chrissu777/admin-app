@@ -62,10 +62,9 @@ class RecordingViewSet(viewsets.ModelViewSet):
         decryptor = StreamDecryptor(
             config=config
         )
-
         response = StreamingHttpResponse(
             decryptor,
             content_type='video/mp4'
         ) 
-        response["Content-Disposition"] = f'inline'
+        response["Content-Disposition"] = f'attachment'
         return response
