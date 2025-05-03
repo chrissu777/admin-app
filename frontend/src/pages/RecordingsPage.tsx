@@ -16,7 +16,7 @@ const getCamId = (name: string): string => {
 
 const RecordingsPage = () => {
   const [recordings, setRecordings] = useState<Recording[]>([]);
-  // const [selected, setSelected] = useState<Recording | null>(null);
+  const [selected, setSelected] = useState<Recording | null>(null);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchRecordings = async () => {
@@ -41,7 +41,7 @@ const RecordingsPage = () => {
       <header className="mb-2">
         <h2 className="text-2xl font-figtree font-bold m-3 ml-40">Recordings: Click to Download</h2>
       </header>
-      {/* {selected && (
+      {selected && (
         <div className="mb-6 flex justify-center">
           <video
             controls
@@ -51,7 +51,7 @@ const RecordingsPage = () => {
             Your browser doesn’t support HTML5 video.
           </video>
         </div>
-      )} */}
+      )}
       <div className="flex justify-center">
         <div className="container items-end border">
           <div className="font-bold">
@@ -62,17 +62,13 @@ const RecordingsPage = () => {
             />
           </div>
           {recordings.map((rec) => (
-            <a
-              key={rec.id}
-              href={`http://127.0.0.1:8000/api/recordings/${rec.id}/download/`}
-              className="block no-underline hover:bg-gray-50"
-            >
+            <div key={rec.id} onClick={() => setSelected(rec)}>
               <FileRow
                 fileName={parseFilePath(rec.s3_filepath)}
                 modifiedDate={rec.rec_date}
                 camID={getCamId(rec.s3_filepath)}
               />
-            </a>
+            </div>
           ))}
         </div>
       </div>

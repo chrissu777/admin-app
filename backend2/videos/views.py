@@ -66,5 +66,5 @@ class RecordingViewSet(viewsets.ModelViewSet):
             decryptor,
             content_type='video/mp4'
         ) 
-        response["Content-Disposition"] = f'attachment'
+        response["Content-Disposition"] = f'Inline'
         return response
