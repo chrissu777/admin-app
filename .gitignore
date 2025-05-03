@@ -39,3 +39,4 @@ frontend/dist-ssr
 frontend/.vscode/*
 !.vscode/extensions.json
 
+backend2/populate.sh
