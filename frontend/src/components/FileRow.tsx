@@ -4,9 +4,9 @@ import { parseFilePath } from "../utils";
 interface fileRowProps {
   fileName: string;
   modifiedDate: string;
-  fileSize: string;
+  camID: string;
 }
-const FileRow = ({ fileName, modifiedDate, fileSize }: fileRowProps) => {
+const FileRow = ({ fileName, modifiedDate, camID }: fileRowProps) => {
   const schoolName = parseFilePath(fileName);
   return (
   <div className="flex items-center p-2 border-b hover:bg-gray-50">
@@ -17,7 +17,7 @@ const FileRow = ({ fileName, modifiedDate, fileSize }: fileRowProps) => {
             <span>{modifiedDate}</span>
         </div>
         <div className="ml-4">
-            <span>{fileSize}</span>
+            <span>{camID}</span>
         </div>
   </div>
 

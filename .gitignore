@@ -39,3 +39,4 @@ frontend/dist-ssr
 frontend/.vscode/*
 !.vscode/extensions.json
 
+**/serviceAccountKey.json

@@ -77,6 +77,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'admin_backend.wsgi.application'
 
+# Authentication backends
+AUTHENTICATION_BACKENDS = [
+    'accounts.firebase_auth.FirebaseAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+# Django REST Framework settings
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'accounts.firebase_auth.FirebaseAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import logo from "../assets/logo.png";
 
 const Navbar = () => {
+  const { user, logout } = useAuth();
+
   return (
     <nav className="bg-med-gray w-full">
       <div className="px-4 mx-auto flex justify-between items-center">
@@ -28,7 +31,16 @@ const Navbar = () => {
           </ul>
         </div>
         <div>
-          <text className="text-white">Settings</text>
+          {user ? (
+            <button
+              onClick={logout}
+              className="text-white hover:text-gray-300 transition-colors"
+            >
+              Logout
+            </button>
+          ) : (
+            <span className="text-white">Settings</span>
+          )}
         </div>
       </div>
     </nav>
