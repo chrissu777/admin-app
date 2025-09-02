@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import FileRow from "../components/FileRow";
 import { parseFilePath } from "../utils";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -8,11 +7,10 @@ interface Recording {
   s3_filepath: string;
   rec_date: string;
   school: string;
+  timestamp: string;
+  cam_id: string;
+  camera_name: string;
 }
-const getCamId = (name: string): string => {
-  const parts = name.split("*");
-  return parts[2] || "—";
-};
 
 const RecordingsPage = () => {
   const [recordings, setRecordings] = useState<Recording[]>([]);
@@ -83,7 +81,13 @@ const RecordingsPage = () => {
                 School Name
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wide">
-                Date
+                Start Time
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wide">
+                End Time
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wide">
+                Cam Name
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wide">
                 Cam ID
@@ -129,10 +133,16 @@ const RecordingsPage = () => {
                   {parseFilePath(rec.s3_filepath)}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
+                  {new Date(rec.timestamp).toLocaleString()}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
                   {new Date(rec.rec_date).toLocaleString()}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  {getCamId(rec.s3_filepath)}
+                  {rec.camera_name || "—"}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {rec.cam_id || "—"}
                 </td>
               </tr>
             ))}

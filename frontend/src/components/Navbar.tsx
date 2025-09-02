@@ -19,13 +19,8 @@ const Navbar = () => {
         <div className="flex-grow">
           <ul className="flex justify-center space-x-6">
             <li>
-              <Link to="/" className="text-white font-figtree">
-                Home
-              </Link>
-            </li>
-            <li>
               <Link to="/recordings" className="text-white font-figtree">
-                Recordings
+                Home
               </Link>
             </li>
           </ul>
