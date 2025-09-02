@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 from videos.models import Recording
 from accounts.models import School
 import boto3
+from datetime import datetime
 
 class Command(BaseCommand):
     help = 'Fetches recording data from S3 and populates DB.'
@@ -25,13 +26,32 @@ class Command(BaseCommand):
         
         for bucket_item in bucket_content:
             
-            s3_key = bucket_item['Key'] # object naming convention: schoolname*nces_id
+            s3_key = bucket_item['Key'] # UMD*163286*0EOTah3Irg2N8MRshq2a*Camera 1*20250902_004430.mp4
+            # NAMING CONVENTION SCHOOL*NCESID*CAMID*CAMNAME*TIMESTAMP
             s3_keys.add(s3_key)
-            item_details = s3_key.split('*') # ['school', 'nces_id', 'date' -> unused]
+            item_details = s3_key.split('*') # ['school', 'nces_id', 'cam_id', 'cam_name', 'timestamp.mp4']
+            
+            if len(item_details) < 5:
+                self.stdout.write(f"Skipping invalid S3 key format: {s3_key}")
+                continue
+                
             school_name = item_details[0]
             ncesid = item_details[1]
+            cam_id = item_details[2]
+            cam_name = item_details[3]
+            timestamp_with_ext = item_details[4]
+            
+            # Extract timestamp from filename (remove .mp4 extension)
+            timestamp_str = timestamp_with_ext.rsplit('.', 1)[0]
+            
+            # Parse timestamp (format: YYYYMMDD_HHMMSS)
+            try:
+                recording_timestamp = datetime.strptime(timestamp_str, '%Y%m%d_%H%M%S')
+            except ValueError:
+                self.stdout.write(f"Invalid timestamp format in {s3_key}: {timestamp_str}")
+                continue
 
-            last_modified = bucket_item['LastModified'] # DateTime object
+            last_modified = bucket_item['LastModified'] # DateTime object (upload time)
 
             try:
                 school_model = School.objects.get(nces_id=ncesid)
@@ -46,6 +66,9 @@ class Command(BaseCommand):
                 Recording.objects.create(
                     s3_filepath = s3_key,
                     rec_date = last_modified,
+                    timestamp = recording_timestamp,
+                    cam_id = cam_id,
+                    camera_name = cam_name,
                     school = school_model
                 )
 
