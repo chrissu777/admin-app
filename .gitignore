@@ -40,3 +40,4 @@ frontend/.vscode/*
 !.vscode/extensions.json
 
 **/serviceAccountKey.json
+**/.venv/
