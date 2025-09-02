@@ -1,5 +1,5 @@
 sigint_handler(){
-	docker compose stop
+	sudo fuser -k 8000/tcp
 	trap - INT
 	kill -INT "$$"
 }
