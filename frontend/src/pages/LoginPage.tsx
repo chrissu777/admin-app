@@ -39,7 +39,7 @@ export default function LoginPage() {
         return;
       }
       
-      navigate("/");
+      navigate("/recordings");
     } catch (err: any) {
       if (err.code === "auth/user-not-found") {
         setError("No user found with this email");
