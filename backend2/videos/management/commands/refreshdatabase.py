@@ -4,6 +4,7 @@ from accounts.models import School
 import boto3
 from datetime import datetime
 from django.utils import timezone
+import pytz
 
 class Command(BaseCommand):
     help = 'Refreshes the database by clearing all existing data and repopulating from S3'
@@ -38,7 +39,8 @@ class Command(BaseCommand):
             # Parse timestamp
             try:
                 recording_timestamp = datetime.strptime(timestamp_str, '%Y%m%d_%H%M%S')
-                recording_timestamp = timezone.make_aware(recording_timestamp)
+                est_timezone = pytz.timezone('US/Eastern')
+                recording_timestamp = est_timezone.localize(recording_timestamp)
             except ValueError:
                 continue
             

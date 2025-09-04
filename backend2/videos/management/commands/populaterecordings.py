@@ -3,6 +3,7 @@ from videos.models import Recording
 from accounts.models import School
 import boto3
 from datetime import datetime
+import pytz
 
 class Command(BaseCommand):
     help = 'Fetches recording data from S3 and populates DB.'
@@ -47,6 +48,8 @@ class Command(BaseCommand):
             # Parse timestamp (format: YYYYMMDD_HHMMSS)
             try:
                 recording_timestamp = datetime.strptime(timestamp_str, '%Y%m%d_%H%M%S')
+                est_timezone = pytz.timezone('US/Eastern')
+                recording_timestamp = est_timezone.localize(recording_timestamp)
             except ValueError:
                 self.stdout.write(f"Invalid timestamp format in {s3_key}: {timestamp_str}")
                 continue
